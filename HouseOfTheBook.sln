@@ -29,11 +29,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HouseOfTheBook.Membership",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HouseOfTheBook.Catalog.Application", "src\HouseOfTheBook.Catalog.Application\HouseOfTheBook.Catalog.Application.csproj", "{C38E6A2C-8E72-4751-B2CF-D2A4E0812273}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseOfTheBook.Catalog.Infrastructure", "HouseOfTheBook.Catalog.Infrastructure\HouseOfTheBook.Catalog.Infrastructure.csproj", "{85769CE4-E4CD-441A-AE95-09D99B8185DC}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{786F0A28-C222-45E2-B589-F6E91D4FD30E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseOfTheBook.Api", "src\HouseOfTheBook.Api\HouseOfTheBook.Api.csproj", "{CD16973F-C0E3-4359-9BF7-537B707F642B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HouseOfTheBook.Api", "src\HouseOfTheBook.Api\HouseOfTheBook.Api.csproj", "{CD16973F-C0E3-4359-9BF7-537B707F642B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HouseOfTheBook.Catalog.Infrastructure", "src\HouseOfTheBook.Catalog.Infrastructure\HouseOfTheBook.Catalog.Infrastructure.csproj", "{CDB54F61-2A16-4417-90C5-9CD80078FFD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,14 +69,14 @@ Global
 		{C38E6A2C-8E72-4751-B2CF-D2A4E0812273}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C38E6A2C-8E72-4751-B2CF-D2A4E0812273}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C38E6A2C-8E72-4751-B2CF-D2A4E0812273}.Release|Any CPU.Build.0 = Release|Any CPU
-		{85769CE4-E4CD-441A-AE95-09D99B8185DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{85769CE4-E4CD-441A-AE95-09D99B8185DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{85769CE4-E4CD-441A-AE95-09D99B8185DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{85769CE4-E4CD-441A-AE95-09D99B8185DC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CD16973F-C0E3-4359-9BF7-537B707F642B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CD16973F-C0E3-4359-9BF7-537B707F642B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD16973F-C0E3-4359-9BF7-537B707F642B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD16973F-C0E3-4359-9BF7-537B707F642B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDB54F61-2A16-4417-90C5-9CD80078FFD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDB54F61-2A16-4417-90C5-9CD80078FFD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDB54F61-2A16-4417-90C5-9CD80078FFD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDB54F61-2A16-4417-90C5-9CD80078FFD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,9 +93,9 @@ Global
 		{CF67E972-2B59-45F5-9060-573CA061725F} = {F3135AED-B78F-4BE1-AC50-0C661C1973C2}
 		{5A856541-B085-4EC1-B78E-52C3CE196688} = {C1538D14-FF40-4E87-B5DF-0C258385D282}
 		{C38E6A2C-8E72-4751-B2CF-D2A4E0812273} = {D27F6922-8586-4676-9485-8B54A15183AC}
-		{85769CE4-E4CD-441A-AE95-09D99B8185DC} = {D27F6922-8586-4676-9485-8B54A15183AC}
 		{786F0A28-C222-45E2-B589-F6E91D4FD30E} = {0E806ECB-D95B-4744-979B-404F5D1E1F0C}
 		{CD16973F-C0E3-4359-9BF7-537B707F642B} = {786F0A28-C222-45E2-B589-F6E91D4FD30E}
+		{CDB54F61-2A16-4417-90C5-9CD80078FFD6} = {D27F6922-8586-4676-9485-8B54A15183AC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {294EE75E-9467-4381-AD51-F22AC52ED2D2}
