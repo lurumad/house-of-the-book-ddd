@@ -2,21 +2,21 @@
 
 namespace HouseOfTheBook.Common
 {
-    public abstract class Identity : IEquatable<Identity>
+    public abstract class Identity<T> : IEquatable<Identity<T>>
     {
-        private readonly string _id;
+        private readonly T _id;
 
         protected Identity()
         {
-            _id = Guid.NewGuid().ToString();
+            _id = default(T);
         }
 
-        protected Identity(string id)
+        protected Identity(T id)
         {
             _id = id;
         }
 
-        public bool Equals(Identity id)
+        public bool Equals(Identity<T> id)
         {
             if (Object.ReferenceEquals(this, id)) return true;
             if (Object.ReferenceEquals(null, id)) return false;
@@ -25,7 +25,7 @@ namespace HouseOfTheBook.Common
 
         public override bool Equals(object anotherObject)
         {
-            return Equals(anotherObject as Identity);
+            return Equals(anotherObject as Identity<T>);
         }
 
         public override int GetHashCode()
@@ -36,6 +36,11 @@ namespace HouseOfTheBook.Common
         public override string ToString()
         {
             return GetType().Name + " [Id=" + _id + "]";
+        }
+
+        public static implicit operator T(Identity<T> id)
+        {
+            return id._id;
         }
     }
 }

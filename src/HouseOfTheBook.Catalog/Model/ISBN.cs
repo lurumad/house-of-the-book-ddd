@@ -1,10 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
-using HouseOfTheBook.Common;
 
-namespace HouseOfTheBook.Catalog.Domain.Model
+namespace HouseOfTheBook.Catalog.Model
 {
-    public class Isbn : ValueObject<Isbn>
+    public class Isbn
     {
         private readonly string value;
 
@@ -27,7 +26,7 @@ namespace HouseOfTheBook.Catalog.Domain.Model
             return new Isbn(value);
         }
 
-        private static Isbn Parse(string isbn)
+        public static Isbn Parse(string isbn)
         {
             if (String.IsNullOrWhiteSpace(isbn))
             {
@@ -42,8 +41,14 @@ namespace HouseOfTheBook.Catalog.Domain.Model
             return result;
         }
 
-        private static bool TryParse(string isbn, out Isbn result)
+        public static bool TryParse(string isbn, out Isbn result)
         {
+            if (String.IsNullOrWhiteSpace(isbn))
+            {
+                result = null;
+                return false;
+            }
+
             if (IsValidIsbn10Digit(isbn) || IsValidIsbn13Digit(isbn))
             {
                 result = new Isbn(isbn);
