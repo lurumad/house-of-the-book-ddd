@@ -22,8 +22,7 @@ namespace HouseOfTheBook.Api.Tests.Scenarios.Books
         [ResetDatabase]
         public async Task allows_to_add_a_new_book()
         {
-            var author = new AuthorBuilder().Build();
-            await container.PersistAuthor(author);
+            var author = await container.PersistAuthor();
             var request = new BookApiRequestBuilder()
                 .WithAuthorId(author.Id)
                 .WithAValidISBN()
