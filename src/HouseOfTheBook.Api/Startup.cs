@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HouseOfTheBook.Api
@@ -19,19 +21,45 @@ namespace HouseOfTheBook.Api
             services
                 .AddApiErrorHandler()
                 .AddMvcCore()
+                .AddVersionedApiExplorer(o => o.GroupNameFormat = "'v'VVV")
+                .AddApiExplorer()
+                .AddAuthorization()
                 .AddFormatterMappings()
+                .AddDataAnnotations()
                 .AddJsonFormatters()
                 .AddCustomJsonOptions()
-                .AddDataAnnotations()
-                .AddCustomMvcOptions(Env);
+                .AddVersionedApiExplorer()
+                .AddCustomMvcOptions(Env)
+                .Services
+                .AddCustomVersioning()
+                .AddSwagger()
+                .AddCors()
+                .AddResponseCompression();
 
             return services.AddAutofac();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(
+            IApplicationBuilder app,
+            IHostingEnvironment env,
+            IApiVersionDescriptionProvider provider)
         {
             app
                 .UseApiErrorHandler()
+                .UseResponseCompression()
+                .UseCors("AllowAny")
+                .UseApiErrorHandler()
+                .UseSwagger()
+                .UseSwaggerUI(
+                    options =>
+                    {
+                        foreach (var description in provider.ApiVersionDescriptions)
+                        {
+                            options.SwaggerEndpoint(
+                                $"/swagger/{description.GroupName}/swagger.json",
+                                description.GroupName.ToUpperInvariant());
+                        }
+                    })
                 .UseMvc();
         }
     }

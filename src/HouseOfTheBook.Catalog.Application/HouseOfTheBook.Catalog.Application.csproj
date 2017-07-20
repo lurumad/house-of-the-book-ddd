@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\HouseOfTheBook.Catalog.Infrastructure\HouseOfTheBook.Catalog.Infrastructure.csproj" />
+    <ProjectReference Include="..\HouseOfTheBook.Catalog.Infrastructure\HouseOfTheBook.Catalog.Infrastructure.csproj" />
     <ProjectReference Include="..\HouseOfTheBook.Catalog\HouseOfTheBook.Catalog.csproj" />
   </ItemGroup>
 

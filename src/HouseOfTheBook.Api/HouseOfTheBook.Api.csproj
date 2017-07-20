@@ -10,14 +10,17 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.6.0" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.1.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.0" />
     <PackageReference Include="MediatR" Version="3.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="1.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="2.0.0-preview2-final" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\HouseOfTheBook.Catalog.Infrastructure\HouseOfTheBook.Catalog.Infrastructure.csproj" />
     <ProjectReference Include="..\HouseOfTheBook.Catalog.Application\HouseOfTheBook.Catalog.Application.csproj" />
+    <ProjectReference Include="..\HouseOfTheBook.Catalog.Infrastructure\HouseOfTheBook.Catalog.Infrastructure.csproj" />
     <ProjectReference Include="..\HouseOfTheBook.Common\HouseOfTheBook.Common.csproj" />
   </ItemGroup>
 

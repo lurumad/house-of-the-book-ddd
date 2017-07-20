@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\HouseOfTheBook.Catalog\HouseOfTheBook.Catalog.csproj" />
+    <ProjectReference Include="..\HouseOfTheBook.Catalog\HouseOfTheBook.Catalog.csproj" />
   </ItemGroup>
 
 </Project>
