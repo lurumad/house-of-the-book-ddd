@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using System.Net;
 using System.Threading.Tasks;
-using HouseOfTheBook.Catalog.Model;
+using HouseOfTheBook.Api.Tests.Extensions;
 using Xunit;
 
 namespace HouseOfTheBook.Api.Tests.Scenarios.Books
@@ -21,28 +21,14 @@ namespace HouseOfTheBook.Api.Tests.Scenarios.Books
         [ResetDatabase]
         public async Task allows_to_add_a_new_book()
         {
-            var author = new Author()
-            {
-                FirstName = "William",
-                LastName = "Shakespeare"
-            };
-            await container.ExecuteDbContextAsync(async context =>
-            {
-                context.Auhtors.Add(author);
-                await context.SaveChangesAsync();
-            });
-            var book = new Book
-            {
-                Title = "Hamlet",
-                Description = "Lorem ipsum...",
-                Pages = 600,
-                Isbn = "9788437610979",
-                AuthorId = author.Id,
-                AvailableStock = 10,
-                Language = "en-GB"
-            };
-            var result = await host.PostAsync(Api.Post.Books(), book);
-            result.StatusCode.Should().Be(HttpStatusCode.Created);
+            var author = new AuthorBuilder().Build();
+            await container.PersistAuthor(author);
+            var request = new BookApiRequestBuilder()
+                .WithAuthorId(author.Id)
+                .WithAValidISBN()
+                .Build(); 
+            var response = await host.PostAsync(Api.Post.Books(), request);
+            response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
     }
 }
