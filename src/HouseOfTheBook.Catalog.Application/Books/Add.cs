@@ -5,11 +5,14 @@ using AutoMapper;
 using HouseOfTheBook.Catalog.Application.Attributes;
 using HouseOfTheBook.Catalog.Infrastructure;
 using HouseOfTheBook.Catalog.Model;
+using HouseOfTheBook.Common;
+using HouseOfTheBook.Common.Exceptions;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace HouseOfTheBook.Catalog.Application.Books
 {
-    public sealed class Create
+    public sealed class Add
     {
         public class Request
         {
@@ -47,16 +50,23 @@ namespace HouseOfTheBook.Catalog.Application.Books
 
         public class CommandHandler : IAsyncRequestHandler<Command, Response>
         {
+            private readonly IMapper mapper;
             private readonly CatalogContext context;
 
-            public CommandHandler(CatalogContext context)
+            public CommandHandler(IMapper mapper, CatalogContext context)
             {
+                this.mapper = mapper;
                 this.context = context;
             }
 
             public async Task<Response> Handle(Command message)
             {
-                var book = Mapper.Map<Book>(message.Request);
+                var book = mapper.Map<Book>(message.Request);
+                var author = context.Auhtors.SingleOrDefaultAsync(a => a.Id == book.AuthorId);
+                if (author == null)
+                {
+                    throw new EntityNotFoundException($"Could not find an author with id {book.AuthorId}");
+                }
                 context.Books.Add(book);
                 await context.SaveChangesAsync();
                 return new Response { Id = book.Id};

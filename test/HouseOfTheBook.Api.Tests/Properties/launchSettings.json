@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "HouseOfTheBook.Api.Tests": {
+      "commandName": "Project"
+    }
+  }
+}

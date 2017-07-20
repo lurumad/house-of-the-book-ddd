@@ -1,18 +1,29 @@
 ﻿using System;
-using System.Linq;
+using System.Reflection;
+using AutoMapper;
+using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using HouseOfTheBook.Common.Options;
 
 namespace HouseOfTheBook.Api
 {
     public class Startup
     {
+        public IConfigurationRoot Configuration { get; }
         public IHostingEnvironment Env { get; }
 
         public Startup(IHostingEnvironment env)
         {
+            Configuration = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", false, true)
+                .AddIf(env.IsDevelopment(), x => x.AddUserSecrets(Assembly.GetExecutingAssembly()))
+                .AddEnvironmentVariables()
+                .Build();
             Env = env;
         }
 
@@ -20,6 +31,7 @@ namespace HouseOfTheBook.Api
         {
             services
                 .AddApiErrorHandler()
+                .AddCustomizeEf(Configuration.GetSection<Data>().ConnectionString)
                 .AddMvcCore()
                 .AddVersionedApiExplorer(o => o.GroupNameFormat = "'v'VVV")
                 .AddApiExplorer()
@@ -34,7 +46,9 @@ namespace HouseOfTheBook.Api
                 .AddCustomVersioning()
                 .AddSwagger()
                 .AddCors()
-                .AddResponseCompression();
+                .AddResponseCompression()
+                .AddAutoMapperClasses(new []{ typeof(Startup).GetTypeInfo().Assembly })
+                .AddCustomAutoMapper();
 
             return services.AddAutofac();
         }

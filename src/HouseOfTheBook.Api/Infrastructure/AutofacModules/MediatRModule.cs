@@ -14,7 +14,7 @@ namespace HouseOfTheBook.Api.Infrastructure.AutofacModules
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterAssemblyTypes(typeof(Create).GetTypeInfo().Assembly)
+            builder.RegisterAssemblyTypes(typeof(Add).GetTypeInfo().Assembly)
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
 

@@ -1,4 +1,5 @@
 ﻿using HouseOfTheBook.Common;
+using HouseOfTheBook.Common.Exceptions;
 using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;

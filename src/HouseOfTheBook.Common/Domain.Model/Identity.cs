@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace HouseOfTheBook.Common
+namespace HouseOfTheBook.Common.Domain.Model
 {
     public abstract class Identity<T> : IEquatable<Identity<T>>
     {

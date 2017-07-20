@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace HouseOfTheBook.Common
+namespace HouseOfTheBook.Common.Domain.Model
 {
     public abstract class ValueObject<T> : IEquatable<T> where T : ValueObject<T>
     {

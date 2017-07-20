@@ -1,4 +1,4 @@
-﻿namespace HouseOfTheBook.Common
+namespace HouseOfTheBook.Common.Domain.Model
 {
     public interface AggregateRoot
     {

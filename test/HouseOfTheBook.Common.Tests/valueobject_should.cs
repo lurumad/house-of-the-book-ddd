@@ -1,4 +1,5 @@
 using FluentAssertions;
+using HouseOfTheBook.Common.Domain.Model;
 using Xunit;
 
 namespace HouseOfTheBook.Common.Tests

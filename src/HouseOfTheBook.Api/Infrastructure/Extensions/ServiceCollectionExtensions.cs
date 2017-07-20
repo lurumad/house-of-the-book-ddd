@@ -2,20 +2,18 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
-using Microsoft.Extensions.Configuration;
 using System;
-using System.IO.Compression;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using AutoMapper;
 using HouseOfTheBook.Api;
-using HouseOfTheBook.Api.Infrastructure.Extensions;
 using HouseOfTheBook.Api.Infrastructure.HttpErrors;
-using HouseOfTheBook.Api.Infrastructure.Versioning;
-using Microsoft.AspNetCore.Builder;
+using HouseOfTheBook.Catalog.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
@@ -105,24 +103,37 @@ namespace Microsoft.Extensions.DependencyInjection
                     }
                 });
 
-        private static Info CreateInfoForApiVersion(ApiVersionDescription description)
+        public static IServiceCollection AddAutoMapperClasses(this IServiceCollection services, IEnumerable<Assembly> assembliesToScan)
         {
-            var apiInformation = new Info
-            {
-                Contact = new Contact { Email = "" },
-                Version = description.ApiVersion.ToString(),
-                Title = $"Swagger {description.ApiVersion}",
-                Description = "",
-                TermsOfService = "",
-                License = new License { Name = "MIT", Url = "https://opensource.org/licenses/MIT" }
-            };
+            assembliesToScan = assembliesToScan as Assembly[] ?? assembliesToScan.ToArray();
+            
+            var types = assembliesToScan.SelectMany(a => a.ExportedTypes).ToArray();
 
-            if (description.IsDeprecated)
-            {
-                apiInformation.Description += " THIS API VERSION HAS BEEN DEPRECATED";
-            }
+            var profiles = types
+                .Where(t => typeof(Profile).IsAssignableFrom(t.GetTypeInfo()))
+                .Where(t => !t.GetTypeInfo().IsAbstract);
 
-            return apiInformation;
+            Mapper.Initialize(cfg =>
+            {
+                foreach (var profile in profiles)
+                {
+                    cfg.AddProfile(profile);
+                }
+            });
+
+            return services;
         }
+
+        public static IServiceCollection AddCustomizeEf(this IServiceCollection services, string connectionString) =>
+            services.AddDbContext<CatalogContext>(options =>
+            {
+                options.UseSqlServer(connectionString);
+            });
+
+        public static IServiceCollection AddCustomAutoMapper(this IServiceCollection services) =>
+            services
+                .AddAutoMapper()
+                .AddSingleton(Mapper.Configuration)
+                .AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<IConfigurationProvider>(), sp.GetService));
     }
 }

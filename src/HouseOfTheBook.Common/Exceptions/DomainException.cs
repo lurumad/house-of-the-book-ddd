@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
-namespace HouseOfTheBook.Common
+namespace HouseOfTheBook.Common.Exceptions
 {
     /// <summary>
     /// Specific exception for domain.
@@ -11,7 +11,7 @@ namespace HouseOfTheBook.Common
 
         public DomainException(string errorMessage) : base(errorMessage)
         {
-            ErrorMessages = new List<string> {errorMessage};
+            ErrorMessages = new List<string> { errorMessage };
         }
 
         public DomainException(IList<string> errorMessages)

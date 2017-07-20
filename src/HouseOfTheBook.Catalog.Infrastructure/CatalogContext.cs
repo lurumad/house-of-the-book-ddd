@@ -6,10 +6,31 @@ namespace HouseOfTheBook.Catalog.Infrastructure
     public class CatalogContext : DbContext
     {
         public DbSet<Book> Books { get; set; }
+        public DbSet<Author> Auhtors { get; set; }
+
+        public CatalogContext(DbContextOptions options) : base(options)
+        {
+            
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             ConfigureBook(modelBuilder);
+            ConfigureAuthor(modelBuilder);
+        }
+
+        private static void ConfigureAuthor(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Author>()
+                .HasKey(author => author.Id);
+            modelBuilder.Entity<Author>()
+                .Property(author => author.FirstName)
+                .IsRequired()
+                .HasMaxLength(250);
+            modelBuilder.Entity<Author>()
+                .Property(author => author.LastName)
+                .IsRequired()
+                .HasMaxLength(250);
         }
 
         private static void ConfigureBook(ModelBuilder modelBuilder)

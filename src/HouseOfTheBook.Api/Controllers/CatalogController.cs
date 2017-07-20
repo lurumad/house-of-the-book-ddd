@@ -17,9 +17,9 @@ namespace HouseOfTheBook.Api.Controllers
 
         [HttpPost]
         [Route("books")]
-        public async Task<IActionResult> AddBook([FromBody] Create.Request request)
+        public async Task<IActionResult> AddBook([FromBody] Add.Request request)
         {
-            var response = await mediator.Send(new Create.Command(request));
+            var response = await mediator.Send(new Add.Command(request));
             return Created("/books", response);
         }
     }

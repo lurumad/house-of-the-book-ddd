@@ -1,4 +1,4 @@
-﻿namespace HouseOfTheBook.Common
+namespace HouseOfTheBook.Common.Exceptions
 {
     /// <summary>
     /// Specific exception when not found an entity or resource

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HouseOfTheBook.Common
+namespace HouseOfTheBook.Common.Exceptions
 {
     /// <summary>
     /// Exception base.
