@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HouseOfTheBook.Common.Exceptions;
+using System;
 using System.ComponentModel;
 
 namespace HouseOfTheBook.Catalog.Model
@@ -28,14 +29,9 @@ namespace HouseOfTheBook.Catalog.Model
 
         public static Isbn Parse(string isbn)
         {
-            if (String.IsNullOrWhiteSpace(isbn))
+            if (String.IsNullOrWhiteSpace(isbn) || !TryParse(isbn, out Isbn result))
             {
-                throw new InvalidEnumArgumentException(nameof(isbn));
-            }
-
-            if (!TryParse(isbn, out Isbn result))
-            {
-                throw new FormatException("Invalid ISBN format");
+                throw new DomainException("Invalid ISBN format");
             }
 
             return result;
