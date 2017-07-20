@@ -1,6 +1,6 @@
 ﻿using HouseOfTheBook.Catalog.Application.Books;
 
-namespace HouseOfTheBook.Api.Tests
+namespace HouseOfTheBook.Api.Tests.Builders
 {
     public class BookApiRequestBuilder
     {

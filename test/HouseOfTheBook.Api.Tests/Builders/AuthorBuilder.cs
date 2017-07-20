@@ -1,6 +1,7 @@
-﻿using HouseOfTheBook.Catalog.Model;
+using HouseOfTheBook.Catalog.Application.Books;
+using HouseOfTheBook.Catalog.Model;
 
-namespace HouseOfTheBook.Api.Tests
+namespace HouseOfTheBook.Api.Tests.Builders
 {
     public class AuthorBuilder
     {

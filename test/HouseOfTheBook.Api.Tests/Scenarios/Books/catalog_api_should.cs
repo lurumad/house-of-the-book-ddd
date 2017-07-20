@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using System.Net;
 using System.Threading.Tasks;
+using HouseOfTheBook.Api.Tests.Builders;
 using HouseOfTheBook.Api.Tests.Extensions;
 using Xunit;
 
