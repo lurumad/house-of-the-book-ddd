@@ -24,5 +24,13 @@
                 return CatalogBaseUrl;
             }
         }
+
+        internal static class Put
+        {
+            public static string Book(int id)
+            {
+                return $"{CatalogBaseUrl}/{id}";
+            }
+        }
     }
 }

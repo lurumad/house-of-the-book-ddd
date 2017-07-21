@@ -23,7 +23,7 @@ namespace HouseOfTheBook.Api.Tests
             var env = Substitute.For<IHostingEnvironment>();
             env.EnvironmentName.Returns(EnvironmentName.Development);
             env.ContentRootPath.Returns(AppContext.BaseDirectory);
-            var startup = new Startup(env);
+            var startup = new Startup(env, new LoggerFactory());
             Configuration = startup.Configuration;
             var services = new ServiceCollection();
             startup.ConfigureServices(services);
@@ -46,7 +46,6 @@ namespace HouseOfTheBook.Api.Tests
             using (var scope = ScopeFactory.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetService<CatalogContext>();
-
                 try
                 {
                     transaction = dbContext.Database.BeginTransaction();

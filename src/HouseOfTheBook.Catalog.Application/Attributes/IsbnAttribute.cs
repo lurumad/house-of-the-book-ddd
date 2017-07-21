@@ -8,7 +8,7 @@ namespace HouseOfTheBook.Catalog.Application.Attributes
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var request = (Add.Request) validationContext.ObjectInstance;
+            var request = (dynamic) validationContext.ObjectInstance;
 
             if (!Isbn.TryParse(request.Isbn, out Isbn isbn))
             {

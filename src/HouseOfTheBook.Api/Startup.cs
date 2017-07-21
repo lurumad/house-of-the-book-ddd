@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using HouseOfTheBook.Common.Options;
+using Microsoft.Extensions.Logging;
 
 namespace HouseOfTheBook.Api
 {
@@ -16,7 +17,7 @@ namespace HouseOfTheBook.Api
         public IConfigurationRoot Configuration { get; }
         public IHostingEnvironment Env { get; }
 
-        public Startup(IHostingEnvironment env)
+        public Startup(IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             Configuration = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
@@ -25,13 +26,15 @@ namespace HouseOfTheBook.Api
                 .AddEnvironmentVariables()
                 .Build();
             Env = env;
+
+            loggerFactory
+                .AddIf(env.IsDevelopment(), x => x.AddConsole().AddDebug());
         }
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services
                 .AddApiErrorHandler()
-                .AddCustomizeEf(Configuration.GetSection<Data>().ConnectionString)
                 .AddMvcCore()
                 .AddVersionedApiExplorer(o => o.GroupNameFormat = "'v'VVV")
                 .AddApiExplorer()
@@ -48,8 +51,8 @@ namespace HouseOfTheBook.Api
                 .AddCors()
                 .AddResponseCompression()
                 .AddAutoMapperClasses(new []{ typeof(Startup).GetTypeInfo().Assembly })
+                .AddCustomizeEf(Configuration.GetSection<Data>().ConnectionString)
                 .AddCustomAutoMapper();
-
             return services.AddAutofac();
         }
 

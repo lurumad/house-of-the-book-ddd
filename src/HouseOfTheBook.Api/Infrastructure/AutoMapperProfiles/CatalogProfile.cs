@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using HouseOfTheBook.Catalog.Application.Books;
 using HouseOfTheBook.Catalog.Model;
 
@@ -13,6 +9,7 @@ namespace HouseOfTheBook.Api.Infrastructure.AutoMapperProfiles
         public CatalogProfile()
         {
             CreateMap<Add.Request, Book>();
+            CreateMap<Update.Request, Book>();
         }
     }
 }

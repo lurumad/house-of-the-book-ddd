@@ -22,5 +22,13 @@ namespace HouseOfTheBook.Api.Controllers
             var response = await mediator.Send(new Add.Command(request));
             return Created("/books", response);
         }
+
+        [HttpPost]
+        [Route("books/{id:int}")]
+        public async Task<IActionResult> UpdateBook(int id, [FromBody] Update.Request request)
+        {
+            var response = await mediator.Send(new Update.Command(request));
+            return Ok(response);
+        }
     }
 }

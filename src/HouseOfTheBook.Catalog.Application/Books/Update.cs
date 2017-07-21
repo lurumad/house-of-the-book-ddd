@@ -5,17 +5,19 @@ using AutoMapper;
 using HouseOfTheBook.Catalog.Application.Attributes;
 using HouseOfTheBook.Catalog.Infrastructure;
 using HouseOfTheBook.Catalog.Model;
-using HouseOfTheBook.Common;
-using HouseOfTheBook.Common.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using HouseOfTheBook.Common.Exceptions;
 
 namespace HouseOfTheBook.Catalog.Application.Books
 {
-    public sealed class Add
+    public sealed class Update
     {
+
         public class Request
         {
+            [Range(0, Int32.MaxValue)]
+            public int Id { get; set; }
             [Required]
             [StringLength(100)]
             public string Title { get; set; }
@@ -25,7 +27,7 @@ namespace HouseOfTheBook.Catalog.Application.Books
             [Required]
             [Isbn]
             public string Isbn { get; set; }
-            [Range(0,2000)]
+            [Range(0, 2000)]
             public int Pages { get; set; }
             [Range(0, 50)]
             public int AvailableStock { get; set; }
@@ -35,7 +37,6 @@ namespace HouseOfTheBook.Catalog.Application.Books
 
         public class Response
         {
-            public int Id { get; set; }
         }
 
         public class Command : IRequest<Response>
@@ -61,17 +62,20 @@ namespace HouseOfTheBook.Catalog.Application.Books
 
             public async Task<Response> Handle(Command message)
             {
-                var book = mapper.Map<Book>(message.Request);
+                var book = await context.Books.SingleOrDefaultAsync(b => b.Id == message.Request.Id);
+                if (book == null)
+                {
+                    throw new EntityNotFoundException($"Could not find an author with id {message.Request.Id}");
+                }
+                book = mapper.Map<Book>(message.Request);
                 var author = await context.Auhtors.SingleOrDefaultAsync(a => a.Id == book.AuthorId);
                 if (author == null)
                 {
                     throw new EntityNotFoundException($"Could not find an author with id {book.AuthorId}");
                 }
-                context.Books.Add(book);
                 await context.SaveChangesAsync();
-                return new Response { Id = book.Id};
+                return new Response();
             }
         }
     }
 }
-

@@ -6,11 +6,13 @@ namespace HouseOfTheBook.Api.Tests.Builders
     {
         private int authorId;
         private string isbn;
+        private int id;
 
-        public Add.Request Build()
+        public Update.Request Build()
         {
-            return new Add.Request
+            return new Update.Request
             {
+                Id = id,
                 Title = "Hamlet",
                 Description = "Lorem ipsum...",
                 Pages = 600,
@@ -18,6 +20,12 @@ namespace HouseOfTheBook.Api.Tests.Builders
                 AuthorId = authorId,
                 AvailableStock = 10
             };
+        }
+
+        public BookApiRequestBuilder WithId(int id)
+        {
+            this.id = id;
+            return this;
         }
 
         public BookApiRequestBuilder WithAuthorId(int authorId)

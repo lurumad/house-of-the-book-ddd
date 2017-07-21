@@ -30,5 +30,18 @@ namespace HouseOfTheBook.Api.Tests.Scenarios.Books
             var response = await host.PostAsync(Api.Post.Books(), request);
             response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
+        [Fact]
+        [ResetDatabase]
+        public async Task allows_to_update_an_existing_book()
+        {
+            var book = await container.PersistBook();
+            var request = new BookApiRequestBuilder()
+                .WithId(book.Id)
+                .WithAuthorId(book.AuthorId)
+                .WithAValidISBN()
+                .Build();
+            var response = await host.PostAsync(Api.Put.Book(book.Id), request);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
     }
 }

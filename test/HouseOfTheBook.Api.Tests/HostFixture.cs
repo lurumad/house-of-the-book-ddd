@@ -42,6 +42,11 @@ namespace HouseOfTheBook.Api.Tests
             var json = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
             return await Client.PostAsync(url, json);
         }
+        public async Task<HttpResponseMessage> PutAsync(string url, object data)
+        {
+            var json = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+            return await Client.PutAsync(url, json);
+        }
 
         public async Task<HttpResponseMessage> DeleteAsync(string url)
         {
